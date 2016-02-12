@@ -1,0 +1,6 @@
+bin
+obj
+packages
+
+db.sqlite
+dht.userprefs
