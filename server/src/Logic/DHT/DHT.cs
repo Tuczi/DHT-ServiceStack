@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Server.Logic.DHT
 {
@@ -14,29 +15,36 @@ namespace Server.Logic.DHT
 			Max = DHTServerCtx.HashFunction.max ()
 		};
 
-		public DHT splitRange (string child)
+		public DHT splitRange (string newChild)
 		{
-			var newMax = HashRange.Max;
-			//TODO calculate
+			var newMax = HashRange.Min + ((HashRange.Max + HashRange.Min) / 2);
 
 			var result = new DHT {
 				Child = Child,
-				HashRange = { Min = newMax, Max = newMax }
+				HashRange = { Min = newMax, Max = HashRange.Max }
 			};
 
-			Child = child;
+			Child = newChild;
 			HashRange.Max = newMax;
+
 			//if parent is empty then set child as child and parent (to make cycle)
 			if (string.IsNullOrEmpty (Parent)) {
-				Parent = child;
+				Parent = newChild;
 			}
 
 			return result;
 		}
-
+			
 		public void mergeRange (DHT dht)
 		{
-			//TODO
+			HashRange.Max = dht.HashRange.Max;
+
+			Child = dht.Child;
+
+			//if this is last server
+			if (Parent == Child) {
+				Parent = Child = "";
+			}
 		}
 	}
 }

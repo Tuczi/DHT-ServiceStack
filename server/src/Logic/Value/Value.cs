@@ -1,13 +1,14 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
 using Server.Services.ValueService;
+using System.Numerics;
 
 namespace Server.Logic.Value
 {
 	public class Value
 	{
 		[PrimaryKey]
-		public string Hash { get; set; }
+		public BigInteger Hash { get; set; }
 
 		public string Key { get; set; }
 

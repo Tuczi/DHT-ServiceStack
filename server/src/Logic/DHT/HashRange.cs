@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Server.Logic.DHT
 {
 	public class HashRange
 	{
-		public string Min;
+		public BigInteger Min;
 
-		public string Max;
+		public BigInteger Max;
 	}
 }
 

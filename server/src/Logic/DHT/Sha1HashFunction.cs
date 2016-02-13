@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
+using System.Numerics;
 
 namespace Server.Logic.DHT
 {
@@ -10,28 +11,23 @@ namespace Server.Logic.DHT
 	{
 		private SHA1 sha = new SHA1CryptoServiceProvider ();
 
-		public string max ()
+		public BigInteger max ()
 		{
-			return new string ('F', sha.HashSize * 2 / 8);
+			return new BigInteger (Enumerable.Repeat (0, sha.HashSize * 2 / 8).Select (e => (byte)0xFF).ToArray ());
 		}
 
-		public string min ()
+		public BigInteger min ()
 		{
-			return new string ('0', sha.HashSize * 2 / 8);
+			return new BigInteger (Enumerable.Repeat (0, sha.HashSize * 2 / 8).Select (e => (byte)0x00).ToArray ());
 		}
 
-		public string apply (string data)
+		public BigInteger apply (string data)
 		{
 			var unicodeEncoding = new UnicodeEncoding ();
 			var unicodeDataBytes = unicodeEncoding.GetBytes (data);
 			var hash = sha.ComputeHash (unicodeDataBytes);
 
-			var sb = new StringBuilder (hash.Length * 2);
-			foreach (var b in hash) {
-				sb.Append (Convert.ToString (b, 16));
-			}
-
-			return sb.ToString ();
+			return new BigInteger (hash);
 		}
 	}
 }
