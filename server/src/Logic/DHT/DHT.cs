@@ -17,7 +17,7 @@ namespace Server.Logic.DHT
 
 		public DHT splitRange (string newChild)
 		{
-			var newMax = HashRange.Min + ((HashRange.Max + HashRange.Min) / 2);
+			var newMax = HashRange.Min + ((HashRange.Max - HashRange.Min) / 2);
 
 			var result = new DHT {
 				Child = Child,

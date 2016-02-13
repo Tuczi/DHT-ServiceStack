@@ -11,12 +11,11 @@ namespace Server.Services.ServerService
 			RuleSet (ApplyTo.All, () => RuleFor (r => r.Child).NotNull());
 
 			RuleSet (ApplyTo.All, () => RuleFor (r => r.Data).NotNull());
-			RuleSet (ApplyTo.All, () => RuleFor (r => r.HashRange).NotNull());
 
-			RuleSet (ApplyTo.All, () => RuleFor (r => r.HashRange.Min).NotNull());
-			RuleSet (ApplyTo.All, () => RuleFor (r => r.HashRange.Min).NotEmpty());
-			RuleSet (ApplyTo.All, () => RuleFor (r => r.HashRange.Max).NotNull());
-			RuleSet (ApplyTo.All, () => RuleFor (r => r.HashRange.Max).NotEmpty());
+			RuleSet (ApplyTo.All, () => RuleFor (r => r.RangeMin).NotNull());
+			RuleSet (ApplyTo.All, () => RuleFor (r => r.RangeMin).NotEmpty());
+			RuleSet (ApplyTo.All, () => RuleFor (r => r.RangeMax).NotNull());
+			RuleSet (ApplyTo.All, () => RuleFor (r => r.RangeMax).NotEmpty());
 		}
 	}
 }

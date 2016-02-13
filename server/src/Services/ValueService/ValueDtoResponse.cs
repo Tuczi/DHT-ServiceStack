@@ -7,7 +7,10 @@ namespace Server.Services.ValueService
 {
 	public class ValueDtoResponse //: IStreamWriter
 	{
-		
+		public ValueDtoResponse ()
+		{
+		}
+
 		public ValueDtoResponse (ValueDto valueDto)
 		{
 			Key = valueDto.Key;

@@ -28,4 +28,5 @@ Server merge hash range and data set.
 
 # TODO
 - replace DHTServerCtx singleton with dependency injection (HashFunction and DHT classes)
+- change RangeMin RangeMax type to BigInteger (some RestSharp problem)
 - tests

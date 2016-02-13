@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using Server.Services.ValueService;
+using System.Numerics;
 using Server.Logic.DHT;
+using Server.Services.ValueService;
 
 namespace Server.Services.ServerService
 {
 	public class JoinDtoResponse
 	{
+		public JoinDtoResponse ()
+		{
+		}
+
 		public JoinDtoResponse (DHT dht, List<ValueDtoResponse> data)
 		{
-			HashRange = dht.HashRange;
+			RangeMin = dht.HashRange.Min.ToString();
+			RangeMax = dht.HashRange.Max.ToString();
 			Child = dht.Child;
 			Data = data;
 		}
 
-		public HashRange HashRange;
-		public string Child;
-		public List<ValueDtoResponse> Data;
+		public string RangeMin { get; set; }
+
+		public string RangeMax { get; set; }
+
+		public string Child { get; set; }
+
+		public List<ValueDtoResponse> Data { get; set; }
 	}
 }
 

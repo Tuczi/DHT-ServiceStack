@@ -1,17 +1,22 @@
 ﻿using System;
-using ServiceStack.ServiceHost;
 using System.Collections.Generic;
-using Server.Services.ValueService;
+using System.Numerics;
 using Server.Logic.DHT;
+using Server.Services.ValueService;
+using ServiceStack.ServiceHost;
 
 namespace Server.Services.ServerService
 {
 	[Route ("/dht/leave", "POST")]
 	public class LeaveDto: IReturn<LeaveDtoResponse>
 	{
-		public HashRange HashRange;
-		public string Child;
-		public List<ValueDto> Data;
+		public string RangeMin { get; set; }
+
+		public string RangeMax { get; set; }
+
+		public string Child { get; set; }
+
+		public List<ValueDto> Data { get; set; }
 	}
 }
 

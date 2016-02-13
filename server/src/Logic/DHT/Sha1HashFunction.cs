@@ -13,12 +13,14 @@ namespace Server.Logic.DHT
 
 		public BigInteger max ()
 		{
-			return new BigInteger (Enumerable.Repeat (0, sha.HashSize * 2 / 8).Select (e => (byte)0xFF).ToArray ());
+			var list = Enumerable.Repeat (0, sha.HashSize / 8).Select (e => (byte)0xFF).ToList ();
+			list.Add ((byte)0x00);//BigInteger is singled value so append zero is necessary (little-endian)
+			return new BigInteger (list.ToArray ());
 		}
 
 		public BigInteger min ()
 		{
-			return new BigInteger (Enumerable.Repeat (0, sha.HashSize * 2 / 8).Select (e => (byte)0x00).ToArray ());
+			return new BigInteger (0);
 		}
 
 		public BigInteger apply (string data)

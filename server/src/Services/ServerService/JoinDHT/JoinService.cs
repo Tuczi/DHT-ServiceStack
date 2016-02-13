@@ -20,9 +20,12 @@ namespace Server.Services.ServerService
 		public object Post (JoinDto req)
 		{
 			var childDht = DHTServerCtx.DHT.splitRange (req.Child);
-			var found = Db.Select<Value> (q => q.Hash.CompareTo (childDht.HashRange.Min) <= 0);//TODO test
+			var found = Db.Select<Value> (q => q.Hash <= childDht.HashRange.Min);//TODO test
 			var dataList = found.Select (v => new ValueDtoResponse (new ValueDto ().PopulateWith (v))).ToList();
 
+			Db.Delete<Value> (q => q.Hash <= childDht.HashRange.Min);//TODO transaction
+
+			log.Info(string.Format("{0} joined. New max range={1}", DHTServerCtx.DHT.Child, DHTServerCtx.DHT.HashRange.Max));
 			return new JoinDtoResponse (childDht, dataList);
 		}
 
