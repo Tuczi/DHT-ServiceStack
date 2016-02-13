@@ -1,6 +1,7 @@
 ﻿using System;
 using RestSharp;
 using System.Collections.Generic;
+using Server.Services.ValueService;
 
 
 namespace Server
@@ -69,7 +70,7 @@ namespace Server
 			Console.WriteLine ("Sending dht/leave request to {0}", DHTServerCtx.DHT.Parent);
 			data.Add ("Child", DHTServerCtx.DHT.Child);
 			data.Add ("HashRange", DHTServerCtx.DHT.HashRange);
-			data.Add ("Data", "TODO");//TODO List<ValueDto>
+			data.Add ("Data", new List<ValueDto>());//TODO read from DB
 
 			request.AddJsonBody (data);
 			RestResponse response = (RestResponse)client.Execute (request);
