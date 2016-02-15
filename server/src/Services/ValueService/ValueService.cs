@@ -20,23 +20,15 @@ namespace Server.Services.ValueService
 		public ValueService () {}
 
 		//get value for key (name)
-<<<<<<< HEAD
-		public object Get (ValueDto req) {
-			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-
-			var redir = this.checkRedirect (hash, req.Key);
-			if (redir != null) {
-				return redir;
-			}
-				
-			var found = Db.Select<Value> (q => q.Hash == hash);
-=======
 		public object Get (ValueDto req)
 		{
 			var value = new Value ().PopulateWith (req);
 			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
+			var redir = this.checkRedirect (value.Hash, req.Key);
+			if (redir != null) {
+				return redir;
+			}
 			var found = Db.Select<Value> (q => q.HashHexString == value.HashHexString);
->>>>>>> master
 
 			if (found.IsEmpty()) {
 				return new HttpResult { StatusCode = HttpStatusCode.NotFound };
@@ -48,23 +40,15 @@ namespace Server.Services.ValueService
 		}
 
 		//create or update value for key (name)
-<<<<<<< HEAD
-		public object Put (ValueDto req) {
-			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-
-			var redir = this.checkRedirect (hash, req.Key);
+		public object Put (ValueDto req)
+		{
+			var value = new Value ().PopulateWith (req);
+			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
+			var redir = this.checkRedirect (value.Hash, req.Key);
 			if (redir != null) {
 				return redir;
 			}
 
-			var found = Db.Select<Value> (q => q.Hash == hash);
-
-=======
-		public object Put (ValueDto req)
-		{
->>>>>>> master
-			var value = new Value ().PopulateWith (req);
-			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
 			var found = Db.Select<Value> (q => q.HashHexString == value.HashHexString);
 	
 			if (found.IsEmpty()) {
@@ -77,22 +61,17 @@ namespace Server.Services.ValueService
 		}
 
 		//delete value for key (name)
-<<<<<<< HEAD
-		public object Delete (ValueDto req) {
-			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-			var redir = this.checkRedirect (hash, req.Key);
-			if (redir != null) {
-				return redir;
-			}
-
-			var found = Db.Select<Value> (q => q.Hash == hash);
-=======
 		public object Delete (ValueDto req)
 		{
 			var value = new Value ().PopulateWith (req);
 			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
+			
+			var redir = this.checkRedirect (value.Hash, req.Key);
+			if (redir != null) {
+				return redir;
+			}
+
 			var found = Db.Select<Value> (q => q.HashHexString == value.HashHexString);
->>>>>>> master
 
 			if (found.IsEmpty()) {
 				return new HttpResult { StatusCode = HttpStatusCode.NotFound };
