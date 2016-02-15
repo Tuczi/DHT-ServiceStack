@@ -28,8 +28,9 @@ namespace Server.Logic.DHT
 			var unicodeEncoding = new UnicodeEncoding ();
 			var unicodeDataBytes = unicodeEncoding.GetBytes (data);
 			var hash = sha.ComputeHash (unicodeDataBytes);
+			byte[] zero = { 0x00 };//BigInteger is singled value so append zero is necessary (little-endian)
 
-			return new BigInteger (hash);
+			return new BigInteger (hash.Concat (zero).ToArray ());
 		}
 	}
 }

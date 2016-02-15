@@ -21,8 +21,7 @@ Allowed methods: POST
 It is auto call by server.
 Server merge hash range and data set.
 
-# Main TODO 
-- finish auto join/leave
+# Main TODO
 - forward requests
 - prepare AWS/OpenStack deploy
 
