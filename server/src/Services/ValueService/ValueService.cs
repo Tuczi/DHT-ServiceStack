@@ -23,7 +23,7 @@ namespace Server.Services.ValueService
 		public object Get (ValueDto req) {
 			var hash = DHTServerCtx.HashFunction.apply (req.Key);
 
-			var redir = this.checkRedirect (hash);
+			var redir = this.checkRedirect (hash, req.Key);
 			if (redir != null) {
 				return redir;
 			}
@@ -43,7 +43,7 @@ namespace Server.Services.ValueService
 		public object Put (ValueDto req) {
 			var hash = DHTServerCtx.HashFunction.apply (req.Key);
 
-			var redir = this.checkRedirect (hash);
+			var redir = this.checkRedirect (hash, req.Key);
 			if (redir != null) {
 				return redir;
 			}
@@ -65,7 +65,7 @@ namespace Server.Services.ValueService
 		//delete value for key (name)
 		public object Delete (ValueDto req) {
 			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-			var redir = this.checkRedirect (hash);
+			var redir = this.checkRedirect (hash, req.Key);
 			if (redir != null) {
 				return redir;
 			}
@@ -80,24 +80,24 @@ namespace Server.Services.ValueService
 			return new HttpResult { StatusCode = HttpStatusCode.NoContent };
 		}
 
-		private HttpResult checkRedirect(BigInteger hash) {
+		private HttpResult checkRedirect(BigInteger hash, string Key) {
 			var hashRange = DHTServerCtx.DHT.HashRange;
 
 			//Todo: check if Location is not empty
 			if (BigInteger.Compare(hash, hashRange.Min) < 0) {
-				log.Debug (String.Format ("redirect to parent, min: {0}, hash: {1}", hashRange.Min.ToString(), hash.ToString()));
+				log.Debug (String.Format ("redirect to parent: {2}, min: {0}, hash: {1}", hashRange.Min.ToString(), hash.ToString(), DHTServerCtx.DHT.Parent));
 				//redirect to parent
-				return new HttpResult { 
+				return new HttpResult {
 					StatusCode = HttpStatusCode.RedirectKeepVerb,
-					Location = DHTServerCtx.DHT.Parent
+					Location = DHTServerCtx.DHT.Parent + "value/" + Key
 				};
 			} else if (BigInteger.Compare(hash, hashRange.Max) >= 0) {
-				log.Debug (String.Format ("redirect to parent, max: {0}, hash: {1}", hashRange.Max.ToString(), hash.ToString()));
+				log.Debug (String.Format ("redirect to child: {2}, max: {0}, hash: {1}", hashRange.Max.ToString(), hash.ToString(), DHTServerCtx.DHT.Child));
 
 				//redirect to child
-				return new HttpResult { 
+				return new HttpResult {
 					StatusCode = HttpStatusCode.RedirectKeepVerb,
-					Location = DHTServerCtx.DHT.Child
+					Location = DHTServerCtx.DHT.Child + "value/" + Key
 				};
 			}
 
