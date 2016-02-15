@@ -11,6 +11,11 @@ namespace Server.Logic.DHT
 	{
 		private SHA1 sha = new SHA1CryptoServiceProvider ();
 
+		public int MaxSizeInBytes ()
+		{
+			return sha.HashSize / 8;
+		}
+
 		public BigInteger max ()
 		{
 			var list = Enumerable.Repeat (0, sha.HashSize / 8).Select (e => (byte)0xFF).ToList ();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Server.Logic.Value;
@@ -8,7 +9,6 @@ using ServiceStack.Common.Web;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceInterface;
-using System.Collections.Generic;
 
 namespace Server.Services.ServerService
 {
@@ -20,12 +20,15 @@ namespace Server.Services.ServerService
 		public object Post (JoinDto req)
 		{
 			var childDht = DHTServerCtx.DHT.splitRange (req.Child);
-			var found = Db.Select<Value> (q => q.Hash <= childDht.HashRange.Min);//TODO test
-			var dataList = found.Select (v => new ValueDtoResponse (new ValueDto ().PopulateWith (v))).ToList();
+			var hashHexString = new Value{ Hash = childDht.HashRange.Min }.HashHexString;
+			Console.WriteLine (hashHexString);
+			var found = Db.Select<Value> (string.Format("HashHexString >= '{0}'", hashHexString));
 
-			Db.Delete<Value> (q => q.Hash <= childDht.HashRange.Min);//TODO transaction
+			var dataList = found.Select (v => new ValueDtoResponse (new ValueDto ().PopulateWith (v))).ToList ();
 
-			log.Info(string.Format("{0} joined. New max range={1}", DHTServerCtx.DHT.Child, DHTServerCtx.DHT.HashRange.Max));
+			Db.Delete<Value> (string.Format("HashHexString >= '{0}'", hashHexString));//TODO transaction
+
+			log.Info (string.Format ("{0} joined. New max range={1}", DHTServerCtx.DHT.Child, DHTServerCtx.DHT.HashRange.Max));
 			return new JoinDtoResponse (childDht, dataList);
 		}
 

@@ -24,8 +24,9 @@ namespace Server.Services.ValueService
 		//get value for key (name)
 		public object Get (ValueDto req)
 		{
-			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-			var found = Db.Select<Value> (q => q.Hash == hash);
+			var value = new Value ().PopulateWith (req);
+			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
+			var found = Db.Select<Value> (q => q.HashHexString == value.HashHexString);
 
 			if (found.Count == 0) {
 				return new HttpResult { StatusCode = HttpStatusCode.NotFound };
@@ -38,11 +39,9 @@ namespace Server.Services.ValueService
 		//create or update value for key (name)
 		public object Put (ValueDto req)
 		{
-			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-			var found = Db.Select<Value> (q => q.Hash == hash);
-
 			var value = new Value ().PopulateWith (req);
-			value.Hash = hash;
+			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
+			var found = Db.Select<Value> (q => q.HashHexString == value.HashHexString);
 	
 			if (found.Count == 0) {
 				Db.Insert<Value> (value);
@@ -56,14 +55,15 @@ namespace Server.Services.ValueService
 		//delete value for key (name)
 		public object Delete (ValueDto req)
 		{
-			var hash = DHTServerCtx.HashFunction.apply (req.Key);
-			var found = Db.Select<Value> (q => q.Hash == hash);
+			var value = new Value ().PopulateWith (req);
+			value.Hash=DHTServerCtx.HashFunction.apply (req.Key);
+			var found = Db.Select<Value> (q => q.HashHexString == value.HashHexString);
 
 			if (found.Count == 0) {
 				return new HttpResult { StatusCode = HttpStatusCode.NotFound };
 			}
 
-			Db.Delete<Value> (q => q.Hash == hash);
+			Db.Delete<Value> (q => q.HashHexString == value.HashHexString);
 			return new HttpResult { StatusCode = HttpStatusCode.NoContent };
 		}
 	}
