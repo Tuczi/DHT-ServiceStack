@@ -85,14 +85,14 @@ namespace Server.Services.ValueService
 			var hashRange = DHTServerCtx.DHT.HashRange;
 
 			//Todo: check if Location is not empty
-			if (BigInteger.Compare(hash, hashRange.Min) < 0) {
+			if (hash < hashRange.Min) {
 				log.Debug (String.Format ("redirect to parent: {2}, min: {0}, hash: {1}", hashRange.Min.ToString(), hash.ToString(), DHTServerCtx.DHT.Parent));
 				//redirect to parent
 				return new HttpResult {
 					StatusCode = HttpStatusCode.RedirectKeepVerb,
 					Location = DHTServerCtx.DHT.Parent + "value/" + Key
 				};
-			} else if (BigInteger.Compare(hash, hashRange.Max) >= 0) {
+			} else if (hash >= hashRange.Max) {
 				log.Debug (String.Format ("redirect to child: {2}, max: {0}, hash: {1}", hashRange.Max.ToString(), hash.ToString(), DHTServerCtx.DHT.Child));
 
 				//redirect to child
