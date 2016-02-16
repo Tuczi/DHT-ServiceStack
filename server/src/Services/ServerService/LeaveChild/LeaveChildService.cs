@@ -14,12 +14,12 @@ using System.Numerics;
 
 namespace Server.Services.ServerService
 {
-	public class LeaveService: Service
+	public class LeaveChildService: Service
 	{
-		public static ILog log = LogManager.GetLogger (typeof(LeaveService));
+		public static ILog log = LogManager.GetLogger (typeof(LeaveChildService));
 
 		//server want to leave DHT
-		public object Post (LeaveDto req)
+		public object Post (LeaveChildDto req)
 		{
 			DHTServerCtx.DHT.mergeRange (new DHT {
 				Child = req.Child,
@@ -37,6 +37,7 @@ namespace Server.Services.ServerService
 			Db.InsertAll<Value> (valueList);
 
 			log.Info (string.Format ("Old child left (new child {0}), new max range={1}", DHTServerCtx.DHT.Child, DHTServerCtx.DHT.HashRange.Max));
+			log.Debug (DHTServerCtx.DHT);
 			return new HttpResult { StatusCode = HttpStatusCode.NoContent };
 		}
 	}

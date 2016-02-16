@@ -4,9 +4,9 @@ using ServiceStack.ServiceInterface;
 
 namespace Server.Services.ServerService
 {
-	public class JoinDtoValidator: AbstractValidator<JoinDto>
+	public class JoinChildDtoValidator: AbstractValidator<JoinChildDto>
 	{
-		public JoinDtoValidator ()
+		public JoinChildDtoValidator ()
 		{
 			RuleSet (ApplyTo.All, () => RuleFor (r => r.Child).NotNull());
 			RuleSet (ApplyTo.All, () => RuleFor (r => r.Child).NotEmpty());

@@ -7,8 +7,8 @@ using ServiceStack.ServiceHost;
 
 namespace Server.Services.ServerService
 {
-	[Route ("/dht/leave", "POST")]
-	public class LeaveDto: IReturn<LeaveDtoResponse>
+	[Route ("/dht/leave/as-child", "POST")]
+	public class LeaveChildDto: IReturn<LeaveChildDtoResponse>
 	{
 		public string RangeMin { get; set; }
 

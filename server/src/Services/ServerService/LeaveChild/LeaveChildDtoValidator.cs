@@ -4,9 +4,9 @@ using ServiceStack.ServiceInterface;
 
 namespace Server.Services.ServerService
 {
-	public class LeaveDtoValidator: AbstractValidator<LeaveDto>
+	public class LeaveChildDtoValidator: AbstractValidator<LeaveChildDto>
 	{
-		public LeaveDtoValidator ()
+		public LeaveChildDtoValidator ()
 		{
 			RuleSet (ApplyTo.All, () => RuleFor (r => r.Child).NotNull());
 

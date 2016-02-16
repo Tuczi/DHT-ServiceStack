@@ -87,16 +87,24 @@
     <Compile Include="src\Logic\Value\Value.cs" />
     <Compile Include="src\Logic\DHT\DHT.cs" />
     <Compile Include="src\Logic\DHT\HashRange.cs" />
-    <Compile Include="src\Services\ServerService\JoinDHT\JoinDtoResponse.cs" />
-    <Compile Include="src\Services\ServerService\JoinDHT\JoinDto.cs" />
-    <Compile Include="src\Services\ServerService\JoinDHT\JoinDtoValidator.cs" />
-    <Compile Include="src\Services\ServerService\JoinDHT\JoinService.cs" />
-    <Compile Include="src\Services\ServerService\LeaveDHT\LeaveDto.cs" />
-    <Compile Include="src\Services\ServerService\LeaveDHT\LeaveDtoResponse.cs" />
-    <Compile Include="src\Services\ServerService\LeaveDHT\LeaveDtoValidator.cs" />
-    <Compile Include="src\Services\ServerService\LeaveDHT\LeaveService.cs" />
     <Compile Include="src\Logic\DHT\Sha1HashFunction.cs" />
     <Compile Include="src\Logic\DHT\DHTServerCtx.cs" />
+    <Compile Include="src\Services\ServerService\JoinChild\JoinChildDtoResponse.cs" />
+    <Compile Include="src\Services\ServerService\JoinChild\JoinChildDtoValidator.cs" />
+    <Compile Include="src\Services\ServerService\JoinChild\JoinChildService.cs" />
+    <Compile Include="src\Services\ServerService\LeaveChild\LeaveChildDto.cs" />
+    <Compile Include="src\Services\ServerService\LeaveChild\LeaveChildDtoResponse.cs" />
+    <Compile Include="src\Services\ServerService\LeaveChild\LeaveChildDtoValidator.cs" />
+    <Compile Include="src\Services\ServerService\JoinChild\JoinChildDto.cs" />
+    <Compile Include="src\Services\ServerService\JoinParent\JoinParentDto.cs" />
+    <Compile Include="src\Services\ServerService\JoinParent\JoinParentDtoResponse.cs" />
+    <Compile Include="src\Services\ServerService\JoinParent\JoinParentService.cs" />
+    <Compile Include="src\Services\ServerService\JoinParent\JoinParentDtoValidator.cs" />
+    <Compile Include="src\Services\ServerService\LeaveParent\LeaveParentDto.cs" />
+    <Compile Include="src\Services\ServerService\LeaveParent\LeaveParentDtoValidator.cs" />
+    <Compile Include="src\Services\ServerService\LeaveParent\LeaveParentDtoResponse.cs" />
+    <Compile Include="src\Services\ServerService\LeaveParent\LeaveParentService.cs" />
+    <Compile Include="src\Services\ServerService\LeaveChild\LeaveChildService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -120,7 +128,9 @@
     <Folder Include="src\Services\ServerService\" />
     <Folder Include="src\Logic\Value\" />
     <Folder Include="src\Logic\DHT\" />
-    <Folder Include="src\Services\ServerService\JoinDHT\" />
-    <Folder Include="src\Services\ServerService\LeaveDHT\" />
+    <Folder Include="src\Services\ServerService\JoinChild\" />
+    <Folder Include="src\Services\ServerService\LeaveChild\" />
+    <Folder Include="src\Services\ServerService\JoinParent\" />
+    <Folder Include="src\Services\ServerService\LeaveParent\" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 namespace Server.Services.ServerService
 {
-	public class LeaveDtoResponse
+	public class LeaveChildDtoResponse
 	{
 
 	}

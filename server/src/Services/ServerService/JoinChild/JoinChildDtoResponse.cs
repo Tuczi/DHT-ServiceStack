@@ -6,13 +6,13 @@ using Server.Services.ValueService;
 
 namespace Server.Services.ServerService
 {
-	public class JoinDtoResponse
+	public class JoinChildDtoResponse
 	{
-		public JoinDtoResponse ()
+		public JoinChildDtoResponse ()
 		{
 		}
 
-		public JoinDtoResponse (DHT dht, List<ValueDtoResponse> data)
+		public JoinChildDtoResponse (DHT dht, List<ValueDtoResponse> data)
 		{
 			RangeMin = dht.HashRange.Min.ToString();
 			RangeMax = dht.HashRange.Max.ToString();

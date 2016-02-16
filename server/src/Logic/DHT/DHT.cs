@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Numerics;
+using System.Collections.Generic;
 
 namespace Server.Logic.DHT
 {
 	//TODO make interface and use dependency injection
 	public class DHT
 	{
+		public string MyPublicUrl;
 		public string Parent = "";
-
 		public string Child = "";
 
 		public HashRange HashRange = new HashRange {
@@ -34,17 +35,26 @@ namespace Server.Logic.DHT
 
 			return result;
 		}
-			
+
 		public void mergeRange (DHT dht)
 		{
-			HashRange.Max = dht.HashRange.Max;
+			var hashList = new List<BigInteger>{ HashRange.Max, HashRange.Min, dht.HashRange.Max, dht.HashRange.Min };
+			hashList.Sort ();
+
+			HashRange.Min = hashList[0];
+			HashRange.Max = hashList[3];
 
 			Child = dht.Child;
 
 			//if this is last server
-			if (Parent == Child) {
+			if (Child == MyPublicUrl) {
 				Parent = Child = "";
 			}
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("DHT: {{ Parent: {0}, Child: {1}, Hash-min: {2}, Hash-max {3}}}", Parent, Child, HashRange.Min, HashRange.Max);
 		}
 	}
 }
