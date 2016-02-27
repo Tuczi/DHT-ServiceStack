@@ -1,3 +1,6 @@
+# DHT-ServiceStack
+Distributed Hash Table build on ServiceStack (REST framework)
+
 # How it works
 Start with PARENT_URL environment variable set to parent url (if not set then this is main server).
 Server will auto join to dht after local app set up (by sending REST request to parent and child).
@@ -32,10 +35,6 @@ Server merge hash range and data set.
 Allowed methods: POST
 It is auto call by server.
 Server save its new parent
-
-# Main TODO
-- forward requests test
-- prepare AWS/OpenStack deploy
 
 # TODO
 - replace DHTServerCtx singleton with dependency injection (HashFunction and DHT classes)
